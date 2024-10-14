@@ -6,20 +6,47 @@ import CodeIconSvg from "../components/CodeIconSvg.astro";
 ---
 
 <Layout title="Welcome to Astro.">
-  <main
-    class="bg-gradient min-h-[100vh] flex pt-24 pr-12 pl-12 items-end custom-filter relative"
-  >
-    <div class="flex max-w-[600px] relative">
-      <Image
-        src={paddyImage}
-        alt="A photo of Paddy wearing a blue blazer and nerdy t-shirt holding his hand up as if holding a floating code icon"
-        class="max-h-full object-contain pr-3 pt-3"
-      />
-      <CodeIconSvg
-        className="absolute top-0 right-0 w-[25%] animation-glow-pulse"
-      />
+  <main class="bg-gradient px-4 md:px-8 lg:px-12 custom-filter relative">
+    <div
+      class="flex flex-col justify-between lg:flex-row lg:flex-row-reverse gap-8 lg:gap-12 max-w-prose lg:max-w-screen-xl mx-auto min-h-[100vh] pt-8 lg:pt-12"
+    >
+      <div class="text-white self-center">
+        <p class="pb-6 text-sm md:text-base lg:text-xl">
+          Hi, I'm Paddy O'Hanlon. I'm a front-leaning full-stack developer. For
+          over a decade, I've designed and built performant, accessible,
+          beautiful web experiences. I also have a fantastic wife, am a dad of
+          two, and love trail running. I opened <a
+            class="underline decoration-[#959cff]"
+            href="https://colmenacowork.es/en/">La Colmena Coworking</a
+          >.
+        </p>
+        <ul
+          class="flex flex-wrap text-xs md:text-md [&>li>a]:decoration-[#959cff] [&>li>a]:decoration-2 [&>li>a]:underline [&>li:not(:first-child)]:before:content-['•'] [&>li:not(:first-child)]:before:text-[#959cff] [&>li:not(:first-child)]:before:pl-2 [&>li:not(:first-child)]:before:pr-1"
+        >
+          <li>
+            <a href="https://github.com/paddyohanlon">GitHub</a>
+          </li>
+          <li>
+            <a href="https://www.linkedin.com/in/paddyohanlon/">LinkedIn</a>
+          </li>
+          <li>
+            <a href="mailto:paddy@paddyohanlon.com">paddy@paddyohanlon.com</a>
+          </li>
+        </ul>
+      </div>
+      <div class="flex max-w-[600px] relative lg:self-end">
+        <Image
+          src={paddyImage}
+          alt="A photo of Paddy wearing a blue blazer and nerdy t-shirt holding his hand up as if holding a floating code icon"
+          class="max-h-full object-contain pr-3 pt-3"
+        />
+        <CodeIconSvg
+          className="absolute top-0 right-0 w-[25%] animation-glow-pulse"
+        />
+      </div>
     </div>
-    <div class="color-overlay"></div>
+
+    <div class="color-overlay" aria-hidden="true"></div>
   </main>
 </Layout>
 
@@ -50,6 +77,7 @@ import CodeIconSvg from "../components/CodeIconSvg.astro";
     z-index: 100;
     opacity: 0.3;
     mix-blend-mode: overlay;
+    pointer-events: none;
     /* animation: 2s ease-in-out infinite alternate brightness-pulse; */
   }
 
