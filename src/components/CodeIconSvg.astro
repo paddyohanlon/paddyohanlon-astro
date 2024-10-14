@@ -1,0 +1,149 @@
+---
+interface Props {
+  className: string;
+}
+
+const { className } = Astro.props;
+
+const iconWidth = 843;
+const iconHeight = 404;
+const viewBoxX = -100;
+const viewBoxY = -100;
+---
+
+<svg
+  id="code-icon"
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox={`${viewBoxX} ${viewBoxY} ${iconWidth + viewBoxX * -2} ${iconHeight + viewBoxY * -2}`}
+  class={`${className}`}
+  aria-labelledby="code-icon-title"
+>
+  <title id="code-icon-title">Code brackets icon</title>
+  <path
+    fill="#fff"
+    d="M837.812,228.438 C837.812,228.438 833.822,236.188 819.408,241.861 C771.688,260.642 663.166,303.353 614.298,322.586 C603.300,327.074 596.813,321.437 596.813,321.437 C596.813,321.437 589.636,317.304 589.636,307.415 C589.636,304.303 589.636,301.116 589.636,297.995 C589.636,284.622 593.812,277.437 593.812,277.437 C593.812,277.437 598.758,269.170 613.008,264.062 C649.690,250.911 720.354,225.579 756.866,212.490 C770.959,207.438 767.812,204.438 767.812,204.438 C767.812,204.438 770.916,200.989 756.765,195.951 C720.259,182.956 649.795,157.872 613.116,144.816 C598.804,139.721 594.813,133.437 594.813,133.437 C594.813,133.437 589.636,124.011 589.636,110.492 C589.636,107.934 589.636,105.337 589.636,102.779 C589.833,91.245 596.813,87.437 596.813,87.437 C596.813,87.437 603.720,82.241 612.966,86.005 C661.123,104.913 771.049,148.072 819.276,167.007 C833.768,172.697 837.812,181.438 837.812,181.438 C837.812,181.438 842.688,188.489 842.688,201.606 C842.688,203.448 842.688,205.306 842.688,207.148 C842.688,220.318 837.812,228.438 837.812,228.438 ZM364.598,380.921 C358.034,394.977 352.000,397.1000 352.000,397.1000 C352.000,397.1000 342.056,403.174 329.401,403.174 C328.491,403.174 327.579,403.174 326.669,403.174 C317.437,403.013 311.1000,395.1000 311.1000,395.1000 C311.1000,395.1000 306.838,389.852 311.531,381.259 C344.043,311.646 444.798,95.905 478.421,23.912 C485.386,8.999 491.1000,6.000 491.1000,6.000 C491.1000,6.000 501.685,0.254 514.376,0.254 C515.125,0.254 515.875,0.254 516.625,0.254 C525.915,0.224 530.1000,6.1000 530.1000,6.1000 C530.1000,6.1000 536.746,12.668 531.659,23.207 C498.424,94.370 397.384,310.719 364.598,380.921 ZM229.847,322.432 C181.690,303.525 71.763,260.365 23.536,241.430 C9.045,235.741 4.1000,226.1000 4.1000,226.1000 C4.1000,226.1000 0.124,219.948 0.124,206.832 C0.124,204.990 0.124,203.132 0.124,201.289 C0.124,188.119 4.1000,179.1000 4.1000,179.1000 C4.1000,179.1000 8.991,172.249 23.405,166.576 C71.125,147.795 179.647,105.085 228.515,85.852 C239.513,81.363 246.000,86.1000 246.000,86.1000 C246.000,86.1000 253.176,91.134 253.176,101.022 C253.176,104.134 253.176,107.321 253.176,110.443 C253.176,123.815 248.1000,130.1000 248.1000,130.1000 C248.1000,130.1000 244.054,139.267 229.804,144.376 C193.122,157.526 122.459,182.858 85.946,195.948 C71.854,200.1000 74.1000,204.000 74.1000,204.000 C74.1000,204.000 71.897,207.449 86.047,212.486 C122.553,225.481 193.018,250.565 229.697,263.622 C244.008,268.716 247.1000,275.000 247.1000,275.000 C247.1000,275.000 253.176,284.427 253.176,297.945 C253.176,300.504 253.176,303.101 253.176,305.659 C252.979,317.192 246.000,320.1000 246.000,320.1000 C246.000,320.1000 239.092,326.196 229.847,322.432 Z"
+  ></path>
+</svg>
+
+<script>
+  import { gsap } from "gsap";
+
+  const count = 15;
+  const particleClass = "particle";
+  const particleColors = ["#fff"];
+  const container = document.getElementById("code-icon");
+
+  if (container) {
+    const viewBox = container.getAttribute("viewBox");
+    let w: number;
+    let h: number;
+    if (viewBox) {
+      const [, , width, height] = viewBox.split(" ").map(Number);
+      w = width;
+      h = height;
+    } else {
+      console.error("SVG viewBox not found");
+      w = 843;
+      h = 404;
+    }
+
+    const svgNS = "http://www.w3.org/2000/svg";
+
+    for (let i = 0; i < count; i++) {
+      const elem = document.createElementNS(svgNS, "circle");
+      elem.classList.add(particleClass);
+      container.appendChild(elem);
+      const size = gsap.utils.random(5, 15);
+
+      elem.setAttribute("r", Math.floor(size).toString());
+      elem.setAttribute(
+        "cx",
+        Math.floor(gsap.utils.random(150, w - 300)).toString()
+      );
+      elem.setAttribute("cy", gsap.utils.random(250, 280).toString());
+      elem.setAttribute("fill", gsap.utils.random(particleColors));
+
+      elem.style.opacity = "0";
+
+      anime(elem);
+    }
+
+    function anime(elem: SVGCircleElement) {
+      const delay = -10;
+      const maxOpacity = 0.4;
+      const tl = gsap.timeline({ repeat: -1, delay });
+
+      const duration = gsap.utils.random(3, 7);
+
+      tl.to(elem, {
+        duration: duration * 0.2,
+        opacity: maxOpacity,
+        ease: "power1.in",
+      })
+        .to(elem, {
+          duration: duration * 0.5,
+          opacity: maxOpacity,
+          ease: "none",
+        })
+        .to(elem, {
+          duration: duration * 0.3,
+          opacity: 0,
+          ease: "power1.out",
+        });
+
+      gsap.to(elem, {
+        duration: duration,
+        y: -(h / 2 + 100),
+        scale: gsap.utils.random(1.4, 2),
+        ease: "none",
+        repeat: -1,
+        delay,
+      });
+      gsap.to(elem, {
+        duration: gsap.utils.random(2, 6),
+        x: "+=50",
+        ease: "power1.inOut",
+        repeat: -1,
+        yoyo: true,
+      });
+      // gsap.to(elem, {
+      //   duration: duration,
+      //   opacity: 0,
+      //   ease: "power1.inOut",
+      //   repeat: -1,
+      // });
+    }
+  }
+</script>
+
+<style>
+  .animation-glow-pulse {
+    animation:
+      2s ease-in-out infinite alternate glow-pulse,
+      1.25s ease-in-out -1s infinite alternate icon-hover;
+  }
+
+  @keyframes glow-pulse {
+    0% {
+      filter: drop-shadow(0px 0px 1px #fff) drop-shadow(0px 0px 3px #fff)
+        drop-shadow(0px 0px 10px #5b5fff) drop-shadow(0px 0px 30px #2227ff)
+        drop-shadow(0px 0px 50px #0006ff);
+    }
+
+    100% {
+      filter: drop-shadow(0px 0px 3px #fff) drop-shadow(0px 0px 6px #fff)
+        drop-shadow(0px 0px 15px #5b5fff) drop-shadow(0px 0px 40px #2227ff)
+        drop-shadow(0px 0px 50px #0006ff);
+    }
+  }
+
+  @keyframes icon-hover {
+    0% {
+      transform: translateY(0);
+    }
+
+    100% {
+      transform: translateY(2px);
+    }
+  }
+</style>
