@@ -1,24 +1,52 @@
 ---
 interface Props {
-	title: string;
+  title: string;
+  description: string;
 }
 
-const { title } = Astro.props;
+const { title, description } = Astro.props;
+
+const defaultOgImage = `${Astro.url.origin}/og-image-default.jpg`;
+const defaultOgImageAlt =
+  "Paddy O'Hanlon with an arm out-stretched, palm facing upwards, with a code icon hovering and emitting blue light";
 ---
 
 <!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="description" content="Astro description" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>{title}</title>
-	</head>
-	<body>
-		<slot />
-	</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta
+      name="description"
+      content="A front-leaning full-stack developer. For over a decade, I've designed and built performant, accessible, beautiful web experiences."
+    />
+
+    <meta property="og:image" content="" />
+    <meta property="og:image:alt" content="" />
+
+    <meta name="description" content={description} />
+    <meta property="og:description" content={description} />
+    <link rel="canonical" href={Astro.url} />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:url" content={Astro.url} />
+    <meta property="og:site_name" content={title} />
+    <meta property="og:image" content={defaultOgImage} />
+    <meta property="og:image:alt" content={defaultOgImageAlt} />
+    <meta name="twitter:card" content="summary" />
+    <meta property="twitter:image" content={defaultOgImage} />
+    <meta property="twitter:title" content={title} />
+    <meta name="twitter:site" content="@paddy" />
+
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="icon.png" />
+    <meta name="theme-color" content="#041320" />
+    <meta name="generator" content={Astro.generator} />
+  </head>
+  <body>
+    <slot />
+  </body>
 </html>
-<style is:global>
-</style>
+<style is:global></style>

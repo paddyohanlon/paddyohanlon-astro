@@ -30,29 +30,22 @@ const viewBoxY = -100;
 
   const count = 15;
   const particleClass = "particle";
-  const particleColors = ["#fff"];
-  const container = document.getElementById("code-icon");
+  const codeIconId = "code-icon";
+  const svg = document.getElementById(codeIconId);
 
-  if (container) {
-    const viewBox = container.getAttribute("viewBox");
-    let w: number;
-    let h: number;
-    if (viewBox) {
-      const [, , width, height] = viewBox.split(" ").map(Number);
-      w = width;
-      h = height;
-    } else {
-      console.error("SVG viewBox not found");
-      w = 843;
-      h = 404;
-    }
+  if (svg) {
+    const viewBox = svg.getAttribute("viewBox") as string;
+
+    const [, , width, height] = viewBox.split(" ").map(Number);
+    const w = width;
+    const h = height;
 
     const svgNS = "http://www.w3.org/2000/svg";
 
     for (let i = 0; i < count; i++) {
       const elem = document.createElementNS(svgNS, "circle");
       elem.classList.add(particleClass);
-      container.appendChild(elem);
+      svg.appendChild(elem);
       const size = gsap.utils.random(5, 15);
 
       elem.setAttribute("r", Math.floor(size).toString());
@@ -61,7 +54,7 @@ const viewBoxY = -100;
         Math.floor(gsap.utils.random(150, w - 300)).toString()
       );
       elem.setAttribute("cy", gsap.utils.random(250, 280).toString());
-      elem.setAttribute("fill", gsap.utils.random(particleColors));
+      elem.setAttribute("fill", "#fff");
 
       elem.style.opacity = "0";
 
@@ -108,6 +101,76 @@ const viewBoxY = -100;
       });
     }
   }
+
+  // Rotate and colourize on mouse move
+  const setRotationY = gsap.quickTo(`#${codeIconId}`, "rotationY", {
+    duration: 0.6,
+    ease: "power3",
+  });
+  const setRotationX = gsap.quickTo(`#${codeIconId}`, "rotationX", {
+    duration: 0.6,
+    ease: "power3",
+  });
+
+  const rotationYMax = 20;
+  const rotationXMax = 20;
+
+  let getPercentX: (x: number) => number;
+  let getPercentY: (y: number) => number;
+
+  function onWindowResize(): void {
+    getPercentX = gsap.utils.mapRange(0, window.innerWidth, -1, 1);
+    getPercentY = gsap.utils.mapRange(0, window.innerHeight, -1, 1);
+  }
+
+  const hueDefault = 0;
+  const huePurple = 40;
+  const hueGreen = -50;
+  let hue = 0;
+
+  function toHue(hue: number): void {
+    gsap.to("#main", {
+      duration: 1,
+      filter: `hue-rotate(${hue}deg)`,
+    });
+  }
+
+  window.addEventListener("mousemove", (e: MouseEvent) => {
+    const percentX: number = getPercentX(e.pageX);
+    setRotationY(percentX * rotationXMax);
+
+    const percentY: number = getPercentY(e.pageY);
+    setRotationX(percentY * -rotationYMax);
+
+    /**
+     %y
+    -1  +---+---+
+     0  +---+---+
+     1  +---+---+
+     %x -1  0   1
+     */
+
+    const noHueX = 0.4;
+
+    if (percentX < -noHueX && hue !== hueGreen) {
+      hue = hueGreen;
+      toHue(hueGreen);
+    } else if (percentX > noHueX && hue !== huePurple) {
+      hue = huePurple;
+      toHue(huePurple);
+    } else if (
+      percentX <= noHueX &&
+      percentX >= -noHueX &&
+      hue !== hueDefault
+    ) {
+      hue = hueDefault;
+      toHue(hueDefault);
+    }
+  });
+
+  window.addEventListener("resize", onWindowResize);
+
+  onWindowResize();
 </script>
 
 <style>
@@ -133,11 +196,11 @@ const viewBoxY = -100;
 
   @keyframes icon-hover {
     0% {
-      transform: translateY(0);
+      translate: 0 0;
     }
 
     100% {
-      transform: translateY(2px);
+      translate: 0 2px;
     }
   }
 </style>

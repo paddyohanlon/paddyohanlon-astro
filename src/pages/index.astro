@@ -3,19 +3,28 @@ import { Image } from "astro:assets";
 import Layout from "../layouts/Layout.astro";
 import paddyImage from "../images/paddyohanlon.png";
 import CodeIconSvg from "../components/CodeIconSvg.astro";
+import { getImageWidths } from "../utils";
 ---
 
-<Layout title="Welcome to Astro.">
-  <main class="bg-gradient px-4 md:px-8 lg:px-12 custom-filter relative">
+<Layout
+  title="Paddy O'Hanlon — Front-leaning full-stack web developer"
+  description="A front-leaning full-stack developer. For over a decade, I've designed and built performant, accessible, beautiful web experiences."
+  ;
+>
+  <main
+    id="main"
+    class="bg-gradient px-4 md:px-8 xl:px-12 custom-filter relative my-perspective"
+  >
     <div
-      class="flex flex-col justify-between lg:flex-row lg:flex-row-reverse gap-8 lg:gap-12 max-w-prose lg:max-w-screen-xl mx-auto min-h-[100vh] pt-8 lg:pt-12"
+      class="flex flex-col justify-between xl:flex-row-reverse gap-8 xl:gap-12 max-w-prose xl:max-w-screen-xl mx-auto min-h-[100vh] pt-8 xl:pt-12"
     >
       <div class="text-white self-center">
-        <p class="pb-6 text-sm md:text-base lg:text-xl">
-          Hi, I'm Paddy O'Hanlon. I'm a front-leaning full-stack developer. For
-          over a decade, I've designed and built performant, accessible,
-          beautiful web experiences. I also have a fantastic wife, am a dad of
-          two, and love trail running. I opened <a
+        <h1 class="text-3xl pb-4">Hi, I'm Paddy O'Hanlon</h1>
+        <p class="pb-6 text-sm md:text-base xl:text-xl">
+          I'm a front-leaning full-stack developer. For over a decade, I've
+          designed and built performant, accessible, beautiful web experiences.
+          I also have a fantastic wife, am a dad of two, and love trail running.
+          I opened <a
             class="underline decoration-[#959cff]"
             href="https://colmenacowork.es/en/">La Colmena Coworking</a
           >.
@@ -34,21 +43,38 @@ import CodeIconSvg from "../components/CodeIconSvg.astro";
           </li>
         </ul>
       </div>
-      <div class="flex max-w-[600px] relative lg:self-end">
+      <div class="max-w-[760px] relative xl:self-end">
         <Image
           src={paddyImage}
-          alt="A photo of Paddy wearing a blue blazer and nerdy t-shirt holding his hand up as if holding a floating code icon"
+          alt="Paddy O'Hanlon with an arm out-stretched, palm facing upwards. The Code brackets icon SVG is positioned, floating above the hand"
+          widths={getImageWidths(280, 740, paddyImage.width)}
+          sizes="(max-width: 687px) calc(100vw - 2rem), (max-width: 1279px) 643px, 740px"
           class="max-h-full object-contain pr-3 pt-3"
+          loading="eager"
         />
-        <CodeIconSvg
-          className="absolute top-0 right-0 w-[25%] animation-glow-pulse"
-        />
+        <div class="absolute top-0 right-0 w-[25%] my-perspective">
+          <CodeIconSvg className="animation-glow-pulse" />
+        </div>
       </div>
     </div>
 
     <div class="color-overlay" aria-hidden="true"></div>
   </main>
 </Layout>
+
+<script>
+  import gsap from "gsap";
+
+  // gsap.to("#main", {
+  //   duration: 4,
+  //   repeat: -1,
+  //   filter: "hue-rotate(360deg)",
+  // });
+
+  // const mainId = "#main";
+
+  // const setHueRotate = gsap.quickTo(mainId, "filter", { duration: 0.6, ease: "power3" })
+</script>
 
 <style>
   .bg-gradient {
@@ -63,8 +89,15 @@ import CodeIconSvg from "../components/CodeIconSvg.astro";
     );
   }
 
+  .my-perspective {
+    perspective: 200px;
+  }
+
   .custom-filter {
-    /* filter: hue-rotate(180deg); */
+    /* filter: hue-rotate(54deg); */
+    /* 0deg blue default */
+    /* 54deg purple */
+    /* 240deg green */
   }
 
   .color-overlay {
