@@ -13,7 +13,7 @@ import { getImageWidths } from "../utils";
 >
   <main
     id="main"
-    class="bg-gradient px-4 md:px-8 xl:px-12 custom-filter relative my-perspective"
+    class="bg-gradient px-4 md:px-8 xl:px-12 relative icon-perspective"
   >
     <div
       class="flex flex-col justify-between xl:flex-row-reverse gap-8 xl:gap-12 max-w-prose xl:max-w-screen-xl mx-auto min-h-[100vh] pt-8 xl:pt-12"
@@ -62,20 +62,6 @@ import { getImageWidths } from "../utils";
   </main>
 </Layout>
 
-<script>
-  import gsap from "gsap";
-
-  // gsap.to("#main", {
-  //   duration: 4,
-  //   repeat: -1,
-  //   filter: "hue-rotate(360deg)",
-  // });
-
-  // const mainId = "#main";
-
-  // const setHueRotate = gsap.quickTo(mainId, "filter", { duration: 0.6, ease: "power3" })
-</script>
-
 <style>
   .bg-gradient {
     --gradient-start-color: #051320;
@@ -89,15 +75,8 @@ import { getImageWidths } from "../utils";
     );
   }
 
-  .my-perspective {
+  .icon-perspective {
     perspective: 200px;
-  }
-
-  .custom-filter {
-    /* filter: hue-rotate(54deg); */
-    /* 0deg blue default */
-    /* 54deg purple */
-    /* 240deg green */
   }
 
   .color-overlay {
@@ -111,16 +90,5 @@ import { getImageWidths } from "../utils";
     opacity: 0.3;
     mix-blend-mode: overlay;
     pointer-events: none;
-    /* animation: 2s ease-in-out infinite alternate brightness-pulse; */
   }
-
-  /* @keyframes brightness-pulse {
-    0% {
-      filter: brightness(1);
-    }
-
-    100% {
-      filter: brightness(5);
-    }
-  } */
 </style>
