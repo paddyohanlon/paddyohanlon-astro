@@ -17,14 +17,6 @@ const defaultOgImageAlt =
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
-    <meta
-      name="description"
-      content="A front-leaning full-stack developer. For over a decade, I've designed and built performant, accessible, beautiful web experiences."
-    />
-
-    <meta property="og:image" content="" />
-    <meta property="og:image:alt" content="" />
-
     <meta name="description" content={description} />
     <meta property="og:description" content={description} />
     <link rel="canonical" href={Astro.url} />
@@ -35,9 +27,9 @@ const defaultOgImageAlt =
     <meta property="og:image" content={defaultOgImage} />
     <meta property="og:image:alt" content={defaultOgImageAlt} />
     <meta name="twitter:card" content="summary" />
-    <meta property="twitter:image" content={defaultOgImage} />
-    <meta property="twitter:title" content={title} />
-    <meta name="twitter:site" content="@paddy" />
+    <meta name="twitter:image" content={defaultOgImage} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:creator" content="@paddy" />
 
     <link rel="icon" href="/favicon.ico" sizes="any" />
     <link rel="icon" href="/icon.svg" type="image/svg+xml" />
