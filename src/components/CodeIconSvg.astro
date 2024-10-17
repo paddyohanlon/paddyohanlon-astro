@@ -32,6 +32,8 @@ const viewBoxY = -100;
   const particleClass = "particle";
   const codeIconId = "code-icon";
   const svg = document.getElementById(codeIconId);
+  const safeToAnimate = () =>
+    window.matchMedia("(prefers-reduced-motion: no-preference)").matches;
 
   if (svg) {
     const viewBox = svg.getAttribute("viewBox") as string;
@@ -62,6 +64,8 @@ const viewBoxY = -100;
     }
 
     function anime(elem: SVGCircleElement) {
+      if (!safeToAnimate()) return;
+
       const delay = -10;
       const maxOpacity = 0.4;
       const tl = gsap.timeline({ repeat: -1, delay });
@@ -119,6 +123,13 @@ const viewBoxY = -100;
   let getPercentY: (y: number) => number;
 
   function onWindowResize(): void {
+    /** Viewport mapping
+     %y
+    -1  +---+---+
+     0  +---+---+
+     1  +---+---+
+     %x -1  0   1
+     */
     getPercentX = gsap.utils.mapRange(0, window.innerWidth, -1, 1);
     getPercentY = gsap.utils.mapRange(0, window.innerHeight, -1, 1);
   }
@@ -136,19 +147,13 @@ const viewBoxY = -100;
   }
 
   window.addEventListener("mousemove", (e: MouseEvent) => {
+    if (!safeToAnimate()) return;
+
     const percentX: number = getPercentX(e.pageX);
     setRotationY(percentX * rotationXMax);
 
     const percentY: number = getPercentY(e.pageY);
     setRotationX(percentY * -rotationYMax);
-
-    /**
-     %y
-    -1  +---+---+
-     0  +---+---+
-     1  +---+---+
-     %x -1  0   1
-     */
 
     const noHueX = 0.4;
 
@@ -179,6 +184,12 @@ const viewBoxY = -100;
     filter: drop-shadow(0px 0px 3px #fff) drop-shadow(0px 0px 6px #fff)
       drop-shadow(0px 0px 15px #5b5fff) drop-shadow(0px 0px 40px #2227ff)
       drop-shadow(0px 0px 50px #0006ff);
+  }
+
+  @media (prefers-reduced-motion) {
+    .animation-glow-pulse {
+      animation: none;
+    }
   }
 
   @keyframes icon-hover {
