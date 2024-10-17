@@ -19,8 +19,16 @@ import { getImageWidths } from "../utils";
       class="flex flex-col justify-between xl:flex-row-reverse gap-8 xl:gap-12 max-w-prose xl:max-w-screen-xl mx-auto min-h-[100vh] pt-8 xl:pt-12"
     >
       <div class="text-white self-center">
-        <h1 class="text-3xl pb-4">Hi, I'm Paddy O'Hanlon</h1>
-        <p class="pb-6 text-sm md:text-base xl:text-xl">
+        <h1 class="text-3xl pb-1">Hi, I'm Paddy O'Hanlon</h1>
+        <p
+          class="text-[#959cff] text-sm md:text-base xl:text-xl hidden"
+          id="company-statement"
+        >
+          And I'd love to work for <span class="text-white font-bold"
+            >Stripe</span
+          >.
+        </p>
+        <p class="pb-6 pt-5 text-sm md:text-base xl:text-xl">
           I'm a front-leaning full-stack developer. For over a decade, I've
           designed and built performant, accessible, beautiful web experiences.
           I also have a fantastic wife, am a dad of two, and love trail running.
@@ -61,6 +69,15 @@ import { getImageWidths } from "../utils";
     <div class="color-overlay" aria-hidden="true"></div>
   </main>
 </Layout>
+
+<script>
+  const queryParams = new URLSearchParams(window.location.search);
+
+  if (queryParams.has("company") && queryParams.get("company") === "stripe") {
+    const companyStatement = document.getElementById("company-statement");
+    companyStatement?.classList.remove("hidden");
+  }
+</script>
 
 <style>
   .bg-gradient {
