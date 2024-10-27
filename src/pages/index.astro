@@ -21,6 +21,12 @@ import { getImageWidths } from "../utils";
       <div class="text-white self-center">
         <h1 class="text-3xl pb-1">Hi, I'm Paddy O'Hanlon</h1>
         <p
+          class="text-[#959cff] text-sm md:text-base xl:text-xl"
+          id="open-to-work"
+        >
+          And I'm open to new opportunities.
+        </p>
+        <p
           class="text-[#959cff] text-sm md:text-base xl:text-xl hidden"
           id="company-statement"
         >
@@ -77,6 +83,9 @@ import { getImageWidths } from "../utils";
   if (queryParams.has("company") && queryParams.get("company") === "stripe") {
     const companyStatement = document.getElementById("company-statement");
     companyStatement?.classList.remove("hidden");
+
+    const openToWork = document.querySelector("#open-to-work");
+    openToWork?.classList.add("hidden");
   }
 </script>
 
