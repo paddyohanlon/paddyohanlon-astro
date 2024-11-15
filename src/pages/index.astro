@@ -26,15 +26,6 @@ import { getImageWidths } from "../utils";
         >
           And I'm open to new opportunities.
         </p>
-        <p
-          class="text-[#959cff] text-sm md:text-base xl:text-xl hidden"
-          id="company-statement"
-        >
-          And I'd love to work for <a
-            href="https://stripe.com/jobs/listing/frontend-engineer-globalization-platform/6085063"
-            class="text-white font-bold">Stripe</a
-          >.
-        </p>
         <p class="pb-6 pt-5 text-sm md:text-base xl:text-xl">
           I'm a front-leaning full-stack developer. For over a decade, I've
           designed and built performant, accessible, beautiful web experiences.
@@ -76,18 +67,6 @@ import { getImageWidths } from "../utils";
     <div class="color-overlay" aria-hidden="true"></div>
   </main>
 </Layout>
-
-<script>
-  const queryParams = new URLSearchParams(window.location.search);
-
-  if (queryParams.has("company") && queryParams.get("company") === "stripe") {
-    const companyStatement = document.getElementById("company-statement");
-    companyStatement?.classList.remove("hidden");
-
-    const openToWork = document.querySelector("#open-to-work");
-    openToWork?.classList.add("hidden");
-  }
-</script>
 
 <style>
   .bg-gradient {
